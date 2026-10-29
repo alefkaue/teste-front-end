@@ -1,47 +1,23 @@
-import { useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Product } from '../../types/product'
 import { formatPrice } from '../../utils/products'
 import { ProductImage } from '../ProductImage/ProductImage'
+import { QuantityControl } from '../QuantityControl/QuantityControl'
+import { Dialog } from '../Dialog/Dialog'
 
 export function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
-  const dialog = useRef<HTMLDialogElement>(null)
-
-  useEffect(() => {
-    const element = dialog.current
-    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
-    const overflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    element?.showModal()
-    return () => {
-      element?.close()
-      document.body.style.overflow = overflow
-      previousFocus?.focus({ preventScroll: true })
-    }
-  }, [])
-
-  return <dialog className="product-modal" ref={dialog} aria-labelledby="modal-product-name" aria-describedby="modal-product-description"
-    onKeyDown={event => {
-      if (event.key !== 'Tab') return
-      const focusable = event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), [tabindex="0"]')
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
-      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
-    }}
-    onCancel={event => { event.preventDefault(); onClose() }}
-    onClick={event => {
-      if (event.target !== event.currentTarget) return
-      const rect = event.currentTarget.getBoundingClientRect()
-      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose()
-    }}>
-    <button className="product-modal__close" onClick={onClose} aria-label="Fechar produto" autoFocus>×</button>
-    <ProductImage product={product} eager />
+  const [quantity, setQuantity] = useState(1)
+  return <Dialog className="product-modal" labelledBy="modal-product-name" describedBy="modal-product-description" closeLabel="Fechar produto" onClose={onClose}>
+    <div className="product-modal__image"><ProductImage product={product} eager /></div>
     <div className="product-modal__info">
       <h2 id="modal-product-name">{product.productName}</h2>
       <p className="product-modal__price">{formatPrice(product.price)}</p>
       <p id="modal-product-description">{product.descriptionShort}</p>
       <Link className="text-link" to={`/produto/${product.slug}`} onClick={onClose}>Ver detalhes</Link>
+      <div className="product-modal__actions"><QuantityControl value={quantity} onChange={setQuantity} />
+        <Link className="yellow-button" to={`/produto/${product.slug}?quantidade=${quantity}`} onClick={onClose}>COMPRAR</Link>
+      </div>
     </div>
-  </dialog>
+  </Dialog>
 }

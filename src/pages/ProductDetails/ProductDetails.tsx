@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { useProducts } from '../../context/ProductsContext'
 import { useCommerce } from '../../context/CommerceContext'
 import { usePageMeta } from '../../hooks/usePageMeta'
@@ -7,14 +7,15 @@ import { ProductImage } from '../../components/ProductImage/ProductImage'
 import { QuantityControl } from '../../components/QuantityControl/QuantityControl'
 import { ProductCarousel } from '../../components/ProductCarousel/ProductCarousel'
 import { EmptyState, ProductStatus } from '../../components/Status/Status'
-import { formatPrice } from '../../utils/products'
+import { clampQuantity, formatPrice } from '../../utils/products'
 
 export function ProductDetails() {
   const { slug } = useParams()
   const { products, loading, error } = useProducts()
   const { addToCart, favorites, toggleFavorite } = useCommerce()
   const product = products.find(item => item.slug === slug)
-  const [quantity, setQuantity] = useState(1)
+  const [searchParams] = useSearchParams()
+  const [quantity, setQuantity] = useState(() => clampQuantity(Number(searchParams.get('quantidade') ?? 1)))
   const [added, setAdded] = useState(false)
   usePageMeta(product?.productName ?? 'Produto', product?.descriptionShort ?? 'Consulte as informações do produto na Econverse.')
 

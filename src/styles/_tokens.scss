@@ -1,6 +1,7 @@
-// Medidas estimadas a partir da imagem oficial de 1834 × 874 px.
-// O Figma Dev Mode não foi acessado; ver docs/REFERENCIAS-VISUAIS.md.
-$pink: #f71963;
+// Identidade da página completa do Figma e da referência indicada pelo usuário.
+$primary: #3442b5;
+$yellow: #f7ca11;
+$purple: #271c47;
 $text: #3f3f40;
 $muted: #777;
 $border: #bdbdbd;
@@ -8,11 +9,11 @@ $radius: 14px;
 $shadow: 0 3px 20px rgb(0 0 0 / 20%);
 
 :root {
-  --color-primary: #{$pink};
+  --color-primary: #{$primary};
   --color-text: #{$text};
-  --card-gap: clamp(24px, 4.25vw, 78px);
-  --card-radius: clamp(10px, .76vw, 14px);
-  --card-height: clamp(495px, 35.25vw, 646px);
-  --card-font: clamp(14px, 1.04vw, 19px);
-  --price-font: clamp(20px, 1.42vw, 26px);
+  --card-gap: 18px;
+  --card-radius: 12px;
+  --card-height: 500px;
+  --card-font: 15px;
+  --price-font: 20px;
 }

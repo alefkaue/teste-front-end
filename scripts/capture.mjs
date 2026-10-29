@@ -13,10 +13,11 @@ for (const width of [1834, 1440, 1024, 768, 390, 375]) {
     await document.fonts.ready
     await Promise.all([...document.images].filter(image => image.loading !== 'lazy').map(image => image.decode().catch(() => {})))
   })
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
   await page.screenshot({ path: `docs/screenshots/vitrine-${width}.png`, fullPage: true })
   console.log(`${width}px`, await page.evaluate(() => ({
     overflow: document.documentElement.scrollWidth > innerWidth,
-    cards: [...document.querySelectorAll('.carousel__slide:not([inert])')].map(el => {
+    cards: [...document.querySelectorAll('#produtos .carousel__slide:not([inert])')].map(el => {
       const rect = el.getBoundingClientRect()
       return { x: Math.round(rect.x), y: Math.round(rect.y), width: Math.round(rect.width), height: Math.round(rect.height) }
     }),
@@ -24,9 +25,11 @@ for (const width of [1834, 1440, 1024, 768, 390, 375]) {
 }
 await page.setViewportSize({ width: 1440, height: 900 })
 await page.goto(base)
+await page.evaluate(() => document.fonts.ready)
+await page.screenshot({ path: 'docs/screenshots/inicio-desktop.png' })
 await page.getByRole('button', { name: /^Comprar / }).first().click()
 await page.getByRole('dialog').waitFor()
-await page.screenshot({ path: 'docs/screenshots/modal-desktop.png', fullPage: true })
+await page.screenshot({ path: 'docs/screenshots/modal-desktop.png' })
 await page.getByRole('link', { name: 'Ver detalhes', exact: true }).click()
 await page.screenshot({ path: 'docs/screenshots/produto-desktop.png', fullPage: true })
 await page.goto(`${base}/produtos`)

@@ -9,7 +9,7 @@ function visibleCount() {
   return 4
 }
 
-export function ProductCarousel({ products }: { products: Product[] }) {
+export function ProductCarousel({ products, label = 'Vitrine de produtos' }: { products: Product[]; label?: string }) {
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(visibleCount)
   const id = useId()
@@ -26,7 +26,7 @@ export function ProductCarousel({ products }: { products: Product[] }) {
     setIndex(Math.min(maxIndex, Math.max(0, current + direction)))
   }
 
-  return <section className="carousel" aria-label="Vitrine de produtos" aria-roledescription="carrossel"
+  return <section className="carousel" aria-label={label} aria-roledescription="carrossel"
     onKeyDown={event => {
       if (event.key === 'ArrowRight') { event.preventDefault(); move(1) }
       if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1) }

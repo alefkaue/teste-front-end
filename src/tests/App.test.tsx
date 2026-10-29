@@ -13,6 +13,38 @@ beforeEach(() => {
 })
 
 describe('jornada do catálogo', () => {
+  it('apresenta a página completa com cabeçalho, banner, departamentos, vitrines, parceiros e rodapé', async () => {
+    renderApp()
+    await screen.findByRole('region', { name: 'Vitrine de produtos' })
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Venha conhecer nossas promoções')
+    expect(screen.getByRole('navigation', { name: 'Comprar por departamento' })).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: 'Vitrine de destaques' })).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: 'Mais produtos' })).toBeInTheDocument()
+    expect(within(screen.getByRole('region', { name: 'Parceiros' })).getAllByRole('article')).toHaveLength(2)
+    expect(within(screen.getByRole('region', { name: 'Navegue por marcas' })).getAllByRole('link')).toHaveLength(5)
+    expect(screen.getByRole('navigation', { name: 'Informações institucionais' })).toBeInTheDocument()
+  })
+
+  it('a busca do cabeçalho leva ao catálogo filtrado', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.type(screen.getByRole('searchbox', { name: 'Buscar produtos' }), '13 MINI')
+    await user.click(screen.getByRole('button', { name: 'Buscar' }))
+    expect(await screen.findAllByRole('article')).toHaveLength(5)
+    expect(screen.getByRole('searchbox', { name: 'Buscar por nome' })).toHaveValue('13 MINI')
+  })
+
+  it('valida a newsletter sem enviar ou persistir dados pessoais', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.type(screen.getByRole('textbox', { name: 'Seu nome' }), 'Alef')
+    await user.type(screen.getByRole('textbox', { name: 'Seu e-mail' }), 'teste@example.com')
+    await user.click(screen.getByRole('checkbox', { name: 'Aceito os' }))
+    await user.click(screen.getByRole('button', { name: 'INSCREVER' }))
+    expect(screen.getByText(/Formulário validado/)).toBeInTheDocument()
+    expect(JSON.stringify(localStorage)).not.toContain('teste@example.com')
+  })
+
   it('mostra loading enquanto a API responde', () => {
     vi.stubGlobal('fetch', vi.fn().mockReturnValue(new Promise(() => {})))
     renderApp()
@@ -23,10 +55,10 @@ describe('jornada do catálogo', () => {
     const user = userEvent.setup()
     renderApp('/produtos')
     expect(await screen.findAllByRole('article')).toHaveLength(10)
-    await user.type(screen.getByRole('searchbox'), 'mini')
+    await user.type(screen.getByRole('searchbox', { name: 'Buscar por nome' }), 'mini')
     expect(screen.getAllByRole('article')).toHaveLength(5)
-    await user.clear(screen.getByRole('searchbox'))
-    await user.type(screen.getByRole('searchbox'), 'não existe')
+    await user.clear(screen.getByRole('searchbox', { name: 'Buscar por nome' }))
+    await user.type(screen.getByRole('searchbox', { name: 'Buscar por nome' }), 'não existe')
     expect(screen.getByText('Nenhum produto encontrado')).toBeInTheDocument()
   })
 
@@ -47,28 +79,28 @@ describe('jornada do catálogo', () => {
     renderApp()
     expect(await screen.findByRole('alert')).toHaveTextContent('Falha de conexão')
     await user.click(screen.getByRole('button', { name: 'Tentar novamente' }))
-    expect(await screen.findAllByRole('article')).toHaveLength(4)
+    expect(within(await screen.findByRole('region', { name: 'Vitrine de produtos' })).getAllByRole('article')).toHaveLength(4)
   })
 
   it('não inventa produtos para categorias vazias', async () => {
     const user = userEvent.setup()
     renderApp()
-    await screen.findAllByRole('article')
+    await screen.findByRole('region', { name: 'Vitrine de produtos' })
     await user.click(screen.getByRole('button', { name: 'TABLETS' }))
     expect(screen.getByText('Nenhum produto nesta categoria')).toBeInTheDocument()
-    expect(screen.queryByRole('article')).not.toBeInTheDocument()
+    expect(screen.queryByRole('region', { name: 'Vitrine de produtos' })).not.toBeInTheDocument()
   })
 
   it('respeita os limites do carrossel', async () => {
     const user = userEvent.setup()
     renderApp()
-    await screen.findAllByRole('article')
-    const next = screen.getByRole('button', { name: 'Próximos produtos' })
-    const previous = screen.getByRole('button', { name: 'Produtos anteriores' })
+    const showcase = within(await screen.findByRole('region', { name: 'Vitrine de produtos' }))
+    const next = showcase.getByRole('button', { name: 'Próximos produtos' })
+    const previous = showcase.getByRole('button', { name: 'Produtos anteriores' })
     expect(previous).toBeDisabled()
     for (let index = 0; index < 6; index++) await user.click(next)
     expect(next).toBeDisabled()
-    expect(screen.getAllByRole('article')[0]).toHaveAccessibleName(fixture.products[6].productName)
+    expect(showcase.getAllByRole('article')[0]).toHaveAccessibleName(fixture.products[6].productName)
     await user.click(previous)
     expect(next).toBeEnabled()
   })
@@ -76,7 +108,7 @@ describe('jornada do catálogo', () => {
   it('abre o produto selecionado no modal, bloqueia o fundo e fecha', async () => {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: `Comprar ${product.productName}` }))
+    await user.click(within(await screen.findByRole('region', { name: 'Vitrine de produtos' })).getByRole('button', { name: `Comprar ${product.productName}` }))
     const dialog = screen.getByRole('dialog')
     expect(within(dialog).getByRole('heading')).toHaveTextContent(product.productName)
     expect(within(dialog).getByText(/15\.000,00/)).toBeInTheDocument()
@@ -89,7 +121,7 @@ describe('jornada do catálogo', () => {
   it('permite navegar do modal para os detalhes', async () => {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: `Comprar ${product.productName}` }))
+    await user.click(within(await screen.findByRole('region', { name: 'Vitrine de produtos' })).getByRole('button', { name: `Comprar ${product.productName}` }))
     await user.click(screen.getByRole('link', { name: 'Ver detalhes' }))
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(product.productName)
     expect(screen.getByRole('button', { name: 'ADICIONAR AO CARRINHO' })).toBeInTheDocument()
