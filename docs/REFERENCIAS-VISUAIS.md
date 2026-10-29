@@ -2,15 +2,32 @@
 
 ## Referência da versão atual
 
-Esta versão implementa a página completa em azul e amarelo do [Figma original](https://www.figma.com/file/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=0%3A1) e da [cópia disponibilizada](https://www.figma.com/design/8sb81wsImNxDHlD1C6IK3U/Untitled?node-id=0-1).
+O material principal é o [Figma oficial da Econverse](https://www.figma.com/file/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=0%3A1). A aplicação adota a página completa em azul e amarelo apresentada nesse protótipo. A [cópia disponibilizada](https://www.figma.com/design/8sb81wsImNxDHlD1C6IK3U/Untitled?node-id=0-1) também foi consultada.
 
-A revisão foi feita usando o projeto [Yuurih44/teste-front-end](https://github.com/Yuurih44/teste-front-end), indicado pelo usuário, e a [versão oficial executável](https://yuurih44.github.io/teste-front-end/?versao=teste). A vitrine rosa isolada deixou de ser a referência principal. A página contém cabeçalho, banner, departamentos, três vitrines, dois conjuntos de parceiros, marcas, newsletter e rodapé.
+Na implementação, o projeto [Yuurih44/teste-front-end](https://github.com/Yuurih44/teste-front-end) e sua [demonstração](https://yuurih44.github.io/teste-front-end/?versao=teste) foram usados como referência auxiliar. Essa participação está preservada nos [créditos dos assets](CREDITOS-VISUAIS.md). A comparação com outra solução não substitui a avaliação frente ao material da empresa.
 
-Não houve acesso ao Dev Mode do Figma. As medidas abaixo foram conferidas no navegador da referência executável e comparadas com esta aplicação, na mesma largura de 1440 px. Isso não equivale a inspecionar as propriedades originais do arquivo Figma. Consulte os [créditos dos assets](CREDITOS-VISUAIS.md).
+## Conferência direta do material oficial
+
+Na revisão da documentação, foi possível abrir o [protótipo oficial](https://www.figma.com/proto/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=1-1248&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A1248) no navegador e examinar os dois frames públicos: a página inicial e o modal, este no nó `12730:2`. Não houve acesso ao Dev Mode ou às propriedades dos nós.
+
+A conferência visual confirmou, no material da empresa, a identidade azul e amarela, o cabeçalho, o banner, os departamentos, quatro cards visíveis e a composição do modal com imagem à esquerda, informações à direita, quantidade e botão amarelo. Essas características não foram validadas apenas pela implementação de outro candidato.
+
+Há ressalvas de fidelidade que permanecem nesta entrega:
+
+- **Materiais oficiais diferentes:** a [imagem isolada da vitrine](https://app.econverse.com.br/teste-front-end/junior/tecnologia/layout/vitrine-produtos.png), também preservada em [referencia-vitrine.png](referencia-vitrine.png), usa rosa e cards maiores; o Figma oficial usa azul. A aplicação segue o Figma completo, portanto não reproduz literalmente a imagem rosa. O impacto é visual, e a escolha da referência precisa ser considerada na avaliação.
+- **Textos comerciais:** o Figma contém desconto de 50%, frete grátis, preço anterior e parcelamento ilustrativos. A aplicação omite essas condições ou usa textos neutros, porque a API não as informa. A estrutura é mantida, mas o conteúdo e a densidade dos cards diferem.
+- **Detalhes visuais:** há diferenças no enquadramento e na tonalidade do banner, nos traços dos ícones e em detalhes de altura, alinhamento e linhas junto à imagem do modal. A correspondência não foi certificada como pixel a pixel.
+- **Ação complementar do modal:** a aplicação oferece acesso à página do produto e transporta a quantidade selecionada. Essa navegação é uma extensão funcional da experiência representada no protótipo.
+
+Esses pontos foram documentados sem alterar componentes, estilos ou comportamento nesta revisão. Os requisitos funcionais foram verificados separadamente; isso não elimina as ressalvas visuais acima.
+
+## Registro da comparação auxiliar
+
+As medidas abaixo foram obtidas anteriormente no navegador da referência auxiliar, na mesma largura de 1440 px. Elas são mantidas como registro técnico e **não representam medidas extraídas do Figma oficial**.
 
 ## Comparação em 1440 px
 
-| Elemento | Referência executável | Implementação |
+| Elemento | Referência auxiliar | Implementação |
 | --- | --- | --- |
 | Área principal do cabeçalho | x=80, y=32, 1280 × 72 px | Igual |
 | Banner | y=144, 1440 × 390 px | Igual |
@@ -39,6 +56,8 @@ As coordenadas registram o estado com produtos carregados e fontes locais dispon
 ## Capturas reais
 
 [Início desktop](screenshots/inicio-desktop.png) · [Página completa desktop](screenshots/vitrine-1440.png) · [Mobile](screenshots/vitrine-390.png) · [Modal](screenshots/modal-desktop.png)
+
+A [prévia do README](screenshots/preview-desktop.png) foi capturada em 1440 × 1490 px para mostrar o cabeçalho, o banner e a primeira vitrine em uma única imagem.
 
 Capturas adicionais estão em [screenshots](screenshots/) para 1834, 1024, 768 e 375 px, além de catálogo e detalhes. Foram geradas da aplicação com os dados oficiais. O script aguarda as fontes e a decodificação das imagens visíveis antes de capturar.
 

@@ -28,4 +28,4 @@ Verificação local em 29/10/2026, Windows, Node 24.19.0 e Microsoft Edge (Chrom
 
 O teste da API depende da disponibilidade externa da Econverse. Os testes unitários usam uma fixture obtida do JSON oficial em 29/10/2026, isolada em `src/tests/fixtures`; ela não é importada pela aplicação.
 
-Configurações de fallback SPA para Vercel e Netlify estão incluídas, mas não foram verificadas em um deploy. Não houve teste em Safari/Firefox ou aparelhos físicos. A consulta ao Figma se limitou à prévia pública. A CI executa instalação, testes, build e E2E em Linux/Chromium.
+Configurações de fallback SPA para Vercel e Netlify estão incluídas, mas não foram verificadas em um deploy. Não houve teste em Safari/Firefox ou aparelhos físicos. Na revisão documental, os dois frames públicos do protótipo oficial foram consultados diretamente no navegador, sem acesso ao Dev Mode; as diferenças estão em [REFERENCIAS-VISUAIS.md](REFERENCIAS-VISUAIS.md). A CI executa instalação, testes, build e E2E em Linux/Chromium.
