@@ -4,8 +4,8 @@ Verificação local em 29/10/2026, Windows, Node 24.19.0 e Microsoft Edge (Chrom
 
 | Verificação | Resultado |
 | --- | --- |
-| Vitest + React Testing Library | 28 testes aprovados |
-| Playwright sobre o build | 11 testes aprovados |
+| Vitest + React Testing Library | 31 testes aprovados |
+| Playwright sobre o build | 14 testes aprovados |
 | TypeScript strict e build Vite | Aprovados |
 | JSON de produção comparado à API oficial | Dados iguais no teste E2E |
 | Revisão visual | Capturas reais em seis larguras |
@@ -22,6 +22,9 @@ Verificação local em 29/10/2026, Windows, Node 24.19.0 e Microsoft Edge (Chrom
 - Carrinho: adição, quantidades, subtotal, remoção e estado vazio.
 - Persistência: carrinho e favoritos após reload; dados locais corrompidos.
 - Responsividade: vitrine, modal, detalhes, catálogo e carrinho em cinco larguras.
+- Página completa: cabeçalho, banner, departamentos, três vitrines, parceiros, marcas, newsletter e rodapé.
+- Medidas em 1440 px: banner em y=144 com 390 px de altura; primeiro card em x=84, y=947 e altura de 500 px.
+- Busca global, departamentos vazios, retorno pelo VER TODOS e validação da newsletter sem persistir dados pessoais.
 
 O teste da API depende da disponibilidade externa da Econverse. Os testes unitários usam uma fixture obtida do JSON oficial em 29/10/2026, isolada em `src/tests/fixtures`; ela não é importada pela aplicação.
 

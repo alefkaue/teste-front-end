@@ -1,6 +1,6 @@
 # Teste Front-end Econverse — Alef Kaue
 
-Implementação do [desafio oficial da Econverse](https://github.com/EconverseAG/teste-front-end) em um fork legítimo, com React, TypeScript e Sass. O objetivo é reproduzir a vitrine rosa da referência e oferecer extensões coerentes, mantendo as funcionalidades extras fora do layout original dos cards.
+Implementação do [desafio oficial da Econverse](https://github.com/EconverseAG/teste-front-end) em um fork legítimo, com React, TypeScript e Sass. A página completa segue a composição do Figma e a [referência indicada para a revisão](https://github.com/Yuurih44/teste-front-end): cabeçalho, banner, departamentos, três vitrines, parceiros, marcas, newsletter e rodapé, com identidade azul e amarela. As funcionalidades extras ficam fora dos cards originais.
 
 **Repositório:** [alefkaue/teste-front-end](https://github.com/alefkaue/teste-front-end) · **Branch de entrega:** `main`.
 
@@ -8,11 +8,11 @@ As instruções da empresa estão preservadas em [DESAFIO-ORIGINAL.md](docs/DESA
 
 ## Capturas reais
 
-![Vitrine em 1440 px](docs/screenshots/vitrine-1440.png)
+![Início da página em 1440 px](docs/screenshots/inicio-desktop.png)
 
 ![Modal de produto](docs/screenshots/modal-desktop.png)
 
-[Mobile](docs/screenshots/vitrine-390.png) · [Detalhes](docs/screenshots/produto-desktop.png) · [Catálogo](docs/screenshots/catalogo-desktop.png)
+[Página completa](docs/screenshots/vitrine-1440.png) · [Mobile](docs/screenshots/vitrine-390.png) · [Detalhes](docs/screenshots/produto-desktop.png) · [Catálogo](docs/screenshots/catalogo-desktop.png)
 
 ## Instalação e execução
 
@@ -51,7 +51,7 @@ npx playwright install chromium
 
 `PLAYWRIGHT_CHANNEL` permite escolher outro canal instalado. A workflow em `.github/workflows/validate.yml` instala as dependências do navegador e executa testes, build e E2E no Linux.
 
-Resultado local: **28 testes de unidade/integração e 11 E2E aprovados**, além de TypeScript strict e build de produção. Consulte [VALIDACAO.md](docs/VALIDACAO.md) para a cobertura dos fluxos.
+Resultado local: **31 testes de unidade/integração e 14 E2E aprovados**, além de TypeScript strict e build de produção. A cobertura inclui a composição da página completa e as medidas principais da referência em 1440 px. Consulte [VALIDACAO.md](docs/VALIDACAO.md).
 
 Para gerar novas capturas, mantenha `npm run dev` aberto e execute em outro terminal:
 
@@ -63,7 +63,7 @@ npm run screenshots
 
 - React e TypeScript strict, Sass/SCSS e componentes reutilizáveis.
 - Fetch API em serviço separado, validação do JSON, loading, erro, nova tentativa e imagem indisponível.
-- Vitrine com quatro cards no desktop, dados oficiais, preço com `Intl.NumberFormat` e botão rosa COMPRAR.
+- Página completa do protótipo, com três vitrines, quatro cards por vitrine no desktop, dados oficiais, preço com `Intl.NumberFormat` e botão azul COMPRAR.
 - Carrossel próprio com avanço, retorno, limites, índice, adaptação à largura e teclado.
 - Clique no produto ou COMPRAR abre o modal com os dados do item selecionado.
 - Modal com botão de fechar, Escape, clique no fundo, bloqueio de scroll e gerenciamento do foco.
@@ -74,13 +74,15 @@ npm run screenshots
 
 | Rota | Funcionalidade |
 | --- | --- |
-| `/` | Vitrine original e categorias; VER TODOS abre o catálogo. |
+| `/` | Página completa do protótipo; categorias e três vitrines independentes. VER TODOS abre o catálogo. |
 | `/produtos` | Grid dos dez produtos, busca por nome e ordenação por menor/maior preço. |
 | `/produtos?favoritos=1` | Catálogo filtrado pelos favoritos. |
 | `/produto/:slug` | Breadcrumb, imagem, nome, descrição, preço, quantidade, favoritos, adição ao carrinho e relacionados. |
 | `/carrinho` | Itens, quantidades, remoção, subtotal e estado vazio. |
 
 Categorias sem produtos exibem um estado vazio: a fonte disponibiliza apenas iPhones. Carrinho e favoritos usam `localStorage`, com validação dos dados e quantidades entre 1 e 99. Se o armazenamento falhar, continuam funcionando em memória e uma mensagem informa a limitação.
+
+A busca do cabeçalho abre o catálogo filtrado. Departamentos sem produtos abrem um estado vazio. A newsletter valida nome, e-mail e aceite, mas não envia nem armazena inscrições. As áreas institucionais explicam o caráter demonstrativo da aplicação. O modal permite selecionar uma quantidade e seguir para a página do produto, onde o item pode ser adicionado ao carrinho.
 
 IDs e slugs são determinísticos, derivados de nome, descrição e imagem. Não dependem da posição, de aleatoriedade ou do preço: uma mudança de preço não invalida o item salvo.
 
@@ -122,9 +124,9 @@ Dependências de execução: React, React DOM e React Router. Desenvolvimento: V
 
 [Vitrine oficial](https://app.econverse.com.br/teste-front-end/junior/tecnologia/layout/vitrine-produtos.png) · [Figma original](https://www.figma.com/file/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=0%3A1) · [Cópia disponibilizada](https://www.figma.com/design/8sb81wsImNxDHlD1C6IK3U/Untitled?node-id=0-1).
 
-A imagem da vitrine rosa foi a referência principal. Capturas reais foram comparadas em **1834, 1440, 1024, 768, 390 e 375 px**. Os E2E verificam ausência de overflow em vitrine, modal, detalhes, catálogo e carrinho nas cinco larguras solicitadas.
+A referência principal desta versão é a página completa em azul e amarelo, conferida com a [versão oficial do exemplo indicado](https://yuurih44.github.io/teste-front-end/?versao=teste). Capturas reais foram geradas em **1834, 1440, 1024, 768, 390 e 375 px**. Cabeçalho, banner, primeira vitrine, cards e parceiros foram comparados nas mesmas coordenadas em 1440 px. Os E2E verificam ausência de overflow em vitrine, modal, detalhes, catálogo e carrinho.
 
-Não houve acesso ao Dev Mode: medidas, fonte e sombra foram estimadas e ajustadas visualmente. A prévia pública do Figma orientou a composição do modal. Os textos reais, a ausência de condições comerciais ilustrativas e a baixa resolução da imagem original produzem diferenças. Não se afirma igualdade absoluta pixel a pixel. Veja [REFERENCIAS-VISUAIS.md](docs/REFERENCIAS-VISUAIS.md).
+Não houve acesso ao Dev Mode. A prévia pública do Figma e a referência executável orientaram a revisão, sem alegação de igualdade absoluta pixel a pixel. Textos de desconto, frete ou parcelamento sem suporte na API não são apresentados como ofertas: a geometria é preservada, com espaços livres nos cards. As origens dos assets estão em [CREDITOS-VISUAIS.md](docs/CREDITOS-VISUAIS.md); medidas e diferenças em [REFERENCIAS-VISUAIS.md](docs/REFERENCIAS-VISUAIS.md).
 
 ## Publicação e limitações
 

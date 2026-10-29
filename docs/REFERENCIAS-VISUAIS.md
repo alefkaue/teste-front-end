@@ -1,43 +1,45 @@
 # Referências e revisão visual
 
-## Fontes consultadas
+## Referência da versão atual
 
-- [Imagem oficial da vitrine](https://app.econverse.com.br/teste-front-end/junior/tecnologia/layout/vitrine-produtos.png), preservada em [referencia-vitrine.png](referencia-vitrine.png).
-- [Figma original](https://www.figma.com/file/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=0%3A1).
-- [Cópia do Figma](https://www.figma.com/design/8sb81wsImNxDHlD1C6IK3U/Untitled?node-id=0-1): prévia pública consultada, incluindo a composição do modal.
+Esta versão implementa a página completa em azul e amarelo do [Figma original](https://www.figma.com/file/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=0%3A1) e da [cópia disponibilizada](https://www.figma.com/design/8sb81wsImNxDHlD1C6IK3U/Untitled?node-id=0-1).
 
-Não houve acesso ao Dev Mode ou às propriedades dos nós. Fonte, dimensões, sombra e espaçamentos foram estimados a partir da imagem. A prévia da cópia contém uma página maior com azul e amarelo; a referência principal adotada foi a vitrine rosa explicitamente indicada. A página completa de marketing da prévia não faz parte desta entrega.
+A revisão foi feita usando o projeto [Yuurih44/teste-front-end](https://github.com/Yuurih44/teste-front-end), indicado pelo usuário, e a [versão oficial executável](https://yuurih44.github.io/teste-front-end/?versao=teste). A vitrine rosa isolada deixou de ser a referência principal. A página contém cabeçalho, banner, departamentos, três vitrines, dois conjuntos de parceiros, marcas, newsletter e rodapé.
 
-## Medidas
+Não houve acesso ao Dev Mode do Figma. As medidas abaixo foram conferidas no navegador da referência executável e comparadas com esta aplicação, na mesma largura de 1440 px. Isso não equivale a inspecionar as propriedades originais do arquivo Figma. Consulte os [créditos dos assets](CREDITOS-VISUAIS.md).
 
-A imagem oficial tem 1834 × 874 px. Valores aproximados, comparados com a aplicação em Microsoft Edge na mesma largura:
+## Comparação em 1440 px
 
-| Elemento | Referência estimada | Implementação medida |
+| Elemento | Referência executável | Implementação |
 | --- | --- | --- |
-| Cards visíveis | 4 | 4 |
-| Card | 350 × 646 px | 351 × 646 px |
-| Primeiro card | x=99, y=167 px | x=98, y=168 px |
-| Espaço entre cards | 78–80 px | 78 px |
-| Título | Poppins, ~38 px, negrito | Poppins, 38 px, 700 |
-| Categorias | ~52 px de altura | 52 px |
-| Botão | ~317 × 57 px | ~317 × 57 px |
-| Cor principal | RGB(247, 25, 99), amostra do botão | `#f71963` |
-| Raio do card | ~14 px | 14 px |
+| Área principal do cabeçalho | x=80, y=32, 1280 × 72 px | Igual |
+| Banner | y=144, 1440 × 390 px | Igual |
+| Título do banner | x=80, y=222, 48 px, peso 600 | Igual |
+| Departamentos | x=80, y=534, 1280 × 210 px | Igual |
+| Primeira seção de produtos | x=80, y=833, 1280 × 634 px | Igual |
+| Primeiro card | x=84, y=947, ~305 × 500 px | Igual |
+| Primeiro conjunto de parceiros | x=80, y=1538, 1280 × 350 px | Igual |
+| Marcas | y=3103 px | y=3104 px |
+| Newsletter | y=4185 px, altura 162 px | y=4187 px, altura 162 px |
+| Cor principal / amarelo / roxo | `#3442b5` / `#f7ca11` / `#271c47` | Iguais |
 
-Em 1440 px há quatro cards de cerca de 276 × 508 px. Em 1024, 768 e 390/375 px são exibidos três, dois e um card, respectivamente. A adaptação usa breakpoints, sem reduzir proporcionalmente a página inteira.
+As coordenadas registram o estado com produtos carregados e fontes locais disponíveis. Os cards apresentam quatro itens por vitrine no desktop, três em 1024 px, dois em 768 px e um em 390/375 px. Cada vitrine tem navegação independente.
 
-## Diferenças e limites
+## Diferenças conhecidas
 
-- Nomes, descrições e preços vêm do JSON e diferem do conteúdo ilustrativo da imagem.
-- Não há preço anterior, desconto, parcelamento ou frete na API. Essas linhas não foram inventadas. A altura do card e as posições aproximadas de preço e botão são preservadas com espaço livre.
-- A imagem disponibilizada pela API tem resolução limitada; sua ampliação não aumenta a nitidez.
-- A seta anterior aparece mais clara quando desabilitada para comunicar o início do carrossel.
-- A navegação complementar fica abaixo da vitrine; favoritos e carrinho ficam fora dos cards.
-- O modal segue a composição observável da prévia, com imagem à esquerda e informações à direita. Cores seguem a vitrine rosa. Suas medidas exatas não puderam ser inspecionadas.
-- Houve revisão visual, sem alegação de reprodução 100% pixel a pixel. Safari/Firefox e aparelhos físicos não foram verificados.
+- O banner mantém a composição visual, mas usa “Confira nossos produtos” no lugar do desconto ilustrativo de 50%, ausente da fonte de produtos.
+- O cabeçalho não afirma frete grátis ou parcelamento sem condições informadas pela API.
+- Nos cards, nomes, descrições, fotos e preços vêm do JSON oficial. Não são inventados preço anterior, frete, desconto ou parcelamento. As áreas correspondentes ficam livres.
+- As imagens de produto são as da API, de resolução limitada.
+- O modal segue a composição com imagem à esquerda, dados à direita, quantidade e ação amarela. COMPRAR nele segue para os detalhes com a quantidade selecionada; a adição ao carrinho continua na página individual.
+- Os ícones de interface foram desenhados em SVG; podem existir pequenas diferenças de traço em relação ao Figma.
+- Newsletter, conta e conteúdo institucional são demonstrativos, sem envio de dados ou serviços externos.
+- Não há alegação de reprodução 100% pixel a pixel ou validação em Safari/Firefox e aparelhos físicos.
 
 ## Capturas reais
 
-As imagens em [screenshots](screenshots/) foram geradas da aplicação funcionando por `npm run screenshots`. Há capturas da vitrine em 1834, 1440, 1024, 768, 390 e 375 px, além do modal, detalhes e catálogo.
+[Início desktop](screenshots/inicio-desktop.png) · [Página completa desktop](screenshots/vitrine-1440.png) · [Mobile](screenshots/vitrine-390.png) · [Modal](screenshots/modal-desktop.png)
 
-Para reproduzir, mantenha `npm run dev` aberto e execute `npm run screenshots` em outro terminal. O script usa Edge no Windows e Chromium nos demais sistemas. `PLAYWRIGHT_CHANNEL` seleciona um canal instalado; `CAPTURE_URL` permite apontar para o preview.
+Capturas adicionais estão em [screenshots](screenshots/) para 1834, 1024, 768 e 375 px, além de catálogo e detalhes. Foram geradas da aplicação com os dados oficiais. O script aguarda as fontes e a decodificação das imagens visíveis antes de capturar.
+
+Para reproduzir, mantenha `npm run dev` aberto e execute `npm run screenshots` em outro terminal. `CAPTURE_URL` pode apontar para outra porta; `PLAYWRIGHT_CHANNEL` seleciona o navegador instalado.
