@@ -21,6 +21,14 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
   }, [])
 
   return <dialog className="product-modal" ref={dialog} aria-labelledby="modal-product-name" aria-describedby="modal-product-description"
+    onKeyDown={event => {
+      if (event.key !== 'Tab') return
+      const focusable = event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), [tabindex="0"]')
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+    }}
     onCancel={event => { event.preventDefault(); onClose() }}
     onClick={event => {
       if (event.target !== event.currentTarget) return
