@@ -1,11 +1,11 @@
 # Validação da entrega
 
-Verificação local em 29/10/2026, Windows, Node 24.19.0 e Microsoft Edge (Chromium). Os E2E usam o build de produção servido pelo Vite Preview.
+Verificação local em 30/10/2026, Windows, Node 24.19.0 e Microsoft Edge (Chromium). Os E2E usam o build de produção servido pelo Vite Preview.
 
 | Verificação | Resultado |
 | --- | --- |
-| Vitest + React Testing Library | 31 testes aprovados |
-| Playwright sobre o build | 14 testes aprovados |
+| Vitest + React Testing Library | 37 testes aprovados |
+| Playwright sobre o build | 27 testes aprovados |
 | TypeScript strict e build Vite | Aprovados |
 | JSON de produção comparado à API oficial | Dados iguais no teste E2E |
 | Revisão visual | Capturas reais em seis larguras |
@@ -25,6 +25,9 @@ Verificação local em 29/10/2026, Windows, Node 24.19.0 e Microsoft Edge (Chrom
 - Página completa: cabeçalho, banner, departamentos, três vitrines, parceiros, marcas, newsletter e rodapé.
 - Medidas em 1440 px: banner em y=144 com 390 px de altura; primeiro card em x=84, y=947 e altura de 500 px.
 - Busca global, departamentos vazios, retorno pelo VER TODOS e validação da newsletter sem persistir dados pessoais.
+- Versão ampliada: 51 itens complementares, abas novas, oito departamentos e lançamentos, sem alterar os dez produtos oficiais.
+- Capturas completas das telas iniciais original e ampliada com igualdade de pixels em 1440 e 390 px.
+- Carrinho e favoritos isolados entre as duas versões; imagens do catálogo complementar verificadas no build.
 
 O teste da API depende da disponibilidade externa da Econverse. Os testes unitários usam uma fixture obtida do JSON oficial em 29/10/2026, isolada em `src/tests/fixtures`; ela não é importada pela aplicação.
 

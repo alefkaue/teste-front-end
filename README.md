@@ -2,7 +2,12 @@
 
 Desenvolvi este projeto como parte do processo seletivo da Econverse, usando React, TypeScript e Sass.
 
-**[Abrir a aplicação no GitHub Pages](https://alefkaue.github.io/teste-front-end/)** — acesso pelo navegador, sem instalar nada. Para executar no seu computador, siga as [instruções locais](#como-executar).
+## Abrir no navegador
+
+- **[Ver a entrega do teste](https://alefkaue.github.io/teste-front-end/)** — a aplicação com os dez produtos fornecidos pela Econverse.
+- **[Explorar o catálogo ampliado](https://alefkaue.github.io/teste-front-end/ampliada/)** — a mesma interface, com novos departamentos, categorias e produtos demonstrativos.
+
+Mantive o teste no endereço principal e deixei a ampliação em uma área própria. As duas versões compartilham os componentes e estilos; os produtos adicionais ficam separados do JSON oficial. Também é possível [executar localmente](#como-executar).
 
 ## Prévia
 
@@ -30,6 +35,8 @@ Procurei manter os componentes reutilizáveis e deixar o acesso aos dados separa
 - Catálogo em `/produtos`, com busca e ordenação por preço, e página individual em `/produto/:slug`.
 - Carrinho em `/carrinho` e favoritos, mantidos ao atualizar a página.
 
+Na área ampliada, acrescentei as abas de áudio e relógios, oito telas de departamentos e uma seleção de novos produtos. [Detalhes dessa versão](docs/VERSAO-AMPLIADA.md).
+
 ## Tecnologias
 
 React, TypeScript em modo strict, Vite, Sass e React Router. Para os testes, usei Vitest, React Testing Library e Playwright.
@@ -46,6 +53,8 @@ npm run dev
 ```
 
 Abra `http://127.0.0.1:5173` ou o endereço informado no terminal.
+
+A versão ampliada fica em `http://127.0.0.1:5173/ampliada/`.
 
 Para compilar e conferir a versão de produção:
 

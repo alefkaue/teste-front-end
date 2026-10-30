@@ -53,3 +53,7 @@ O código é entregue na branch `main` do fork, com publicação automática no 
 Para conferir esse build localmente, use `npm run build:pages` e `npm run preview -- --mode pages`; o Vite informa a URL com `/teste-front-end/`. O catálogo é obtido do endpoint oficial durante a publicação e servido junto aos arquivos estáticos. Não houve deploy em Vercel ou Netlify; suas configurações de fallback permanecem disponíveis.
 
 As imagens de produtos dependem do servidor oficial. A interface foi verificada em Edge/Chromium; Safari, Firefox e aparelhos físicos não foram avaliados.
+
+## Versões da aplicação
+
+A entrada principal continua usando somente os produtos oficiais. A entrada `/ampliada/` ativa o catálogo complementar com as mesmas rotas, componentes e estilos, além das telas de departamentos e lançamentos. Os detalhes e as verificações de preservação visual estão em [VERSAO-AMPLIADA.md](VERSAO-AMPLIADA.md).
