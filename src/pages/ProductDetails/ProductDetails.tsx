@@ -8,8 +8,11 @@ import { QuantityControl } from '../../components/QuantityControl/QuantityContro
 import { ProductCarousel } from '../../components/ProductCarousel/ProductCarousel'
 import { EmptyState, ProductStatus } from '../../components/Status/Status'
 import { clampQuantity, formatPrice } from '../../utils/products'
+import { useExpandedEdition } from '../../context/EditionContext'
+import { productCategory, productDepartment } from '../../utils/catalog'
 
 export function ProductDetails() {
+  const expanded = useExpandedEdition()
   const { slug } = useParams()
   const { products, loading, error } = useProducts()
   const { addToCart, favorites, toggleFavorite } = useCommerce()
@@ -42,7 +45,8 @@ export function ProductDetails() {
       </div>
     </section>
     <section className="related" aria-labelledby="related-title"><h2 id="related-title" className="section-title">Produtos relacionados</h2>
-      <ProductCarousel key={product.id} products={products.filter(item => item.id !== product.id)} />
+      <ProductCarousel key={product.id} products={products.filter(item => item.id !== product.id &&
+        (!expanded || (productDepartment(item) === productDepartment(product) && productCategory(item) === productCategory(product))))} />
     </section>
   </main>
 }

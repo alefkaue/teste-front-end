@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCommerce } from '../../context/CommerceContext'
 import { Icon } from '../Icon/Icon'
 import { InfoDialog } from '../Dialog/Dialog'
+import { useExpandedEdition } from '../../context/EditionContext'
 
 export function Header() {
+  const expanded = useExpandedEdition()
   const { cart } = useCommerce()
   const [search, setSearch] = useState('')
   const [info, setInfo] = useState<string | null>(null)
@@ -39,10 +41,10 @@ export function Header() {
       </div>
       <nav className="department-nav container" aria-label="Departamentos">
         <Link to="/produtos" aria-label="Produtos">TODAS CATEGORIAS</Link>
-        <Link to="/produtos?departamento=supermercado">SUPERMERCADO</Link>
-        <Link to="/produtos?departamento=livros">LIVROS</Link>
-        <Link to="/produtos?departamento=moda">MODA</Link>
-        <Link to="/produtos">LANÇAMENTOS</Link>
+        <Link to={expanded ? '/departamento/supermercado' : '/produtos?departamento=supermercado'}>SUPERMERCADO</Link>
+        <Link to={expanded ? '/departamento/livros' : '/produtos?departamento=livros'}>LIVROS</Link>
+        <Link to={expanded ? '/departamento/moda' : '/produtos?departamento=moda'}>MODA</Link>
+        <Link to={expanded ? '/lancamentos' : '/produtos'}>LANÇAMENTOS</Link>
         <Link className="is-highlighted" to="/produtos">OFERTAS DO DIA</Link>
         <button onClick={() => setInfo('Assinatura')}><Icon name="crown" size={21} />ASSINATURA</button>
       </nav>

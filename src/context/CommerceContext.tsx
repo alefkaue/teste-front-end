@@ -2,6 +2,7 @@ import { createContext, useContext, type ReactNode } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import type { CartItem } from '../types/product'
 import { clampQuantity } from '../utils/products'
+import { useExpandedEdition } from './EditionContext'
 
 const isCart = (value: unknown): value is CartItem[] => Array.isArray(value) && value.every(item =>
   typeof item === 'object' && item !== null && typeof item.productId === 'string' &&
@@ -23,8 +24,10 @@ interface CommerceState {
 const CommerceContext = createContext<CommerceState | null>(null)
 
 export function CommerceProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart, cartStorageUnavailable] = useLocalStorage('econverse:cart:v1', [], isCart)
-  const [favorites, setFavorites, favoritesStorageUnavailable] = useLocalStorage('econverse:favorites:v1', [], isFavorites)
+  const expanded = useExpandedEdition()
+  const prefix = expanded ? 'econverse:expanded' : 'econverse'
+  const [cart, setCart, cartStorageUnavailable] = useLocalStorage(`${prefix}:cart:v1`, [], isCart)
+  const [favorites, setFavorites, favoritesStorageUnavailable] = useLocalStorage(`${prefix}:favorites:v1`, [], isFavorites)
 
   function addToCart(id: string, quantity: number) {
     setCart(current => {

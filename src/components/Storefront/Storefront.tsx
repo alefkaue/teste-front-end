@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { InfoDialog } from '../Dialog/Dialog'
 import { Icon } from '../Icon/Icon'
+import { useExpandedEdition } from '../../context/EditionContext'
 
 const departments = [
   ['tecnologia', 'Tecnologia'], ['supermercado', 'Supermercado'], ['bebidas', 'Bebidas'],
@@ -20,9 +21,10 @@ export function Hero() {
 }
 
 export function DepartmentTiles() {
+  const expanded = useExpandedEdition()
   return <nav className="department-tiles container" aria-label="Comprar por departamento">
     {departments.map(([id, name], index) => <Link className={index === 0 ? 'is-active' : ''} key={id}
-      to={index === 0 ? '/produtos' : `/produtos?departamento=${id}`}>
+      to={expanded ? `/departamento/${id}` : index === 0 ? '/produtos' : `/produtos?departamento=${id}`}>
       <span><img src={`${import.meta.env.BASE_URL}images/${id}.png`} width="61" height="61" alt="" /></span>{name}
     </Link>)}
   </nav>

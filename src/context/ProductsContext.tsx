@@ -1,9 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Product } from '../types/product'
 import { fetchProducts } from '../services/products'
+import { useExpandedEdition } from './EditionContext'
 
 interface ProductsState {
   products: Product[]
+  officialProducts: Product[]
   loading: boolean
   error: string | null
   retry: () => void
@@ -12,7 +14,9 @@ interface ProductsState {
 const ProductsContext = createContext<ProductsState | null>(null)
 
 export function ProductsProvider({ children }: { children: ReactNode }) {
+  const expanded = useExpandedEdition()
   const [products, setProducts] = useState<Product[]>([])
+  const [officialProducts, setOfficialProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [attempt, setAttempt] = useState(0)
@@ -22,16 +26,24 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
     const controller = new AbortController()
     setLoading(true)
     setError(null)
-    fetchProducts(controller.signal)
-      .then(data => { if (!controller.signal.aborted) setProducts(data) })
+    Promise.all([
+      fetchProducts(controller.signal),
+      expanded ? import('../data/additionalProducts').then(module => module.additionalProducts) : Promise.resolve<Product[]>([]),
+    ])
+      .then(([official, additional]) => {
+        if (!controller.signal.aborted) {
+          setOfficialProducts(official)
+          setProducts([...official, ...additional])
+        }
+      })
       .catch((reason: unknown) => {
         if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : 'Não foi possível carregar os produtos.')
       })
       .finally(() => { if (!controller.signal.aborted) setLoading(false) })
     return () => controller.abort()
-  }, [attempt])
+  }, [attempt, expanded])
 
-  return <ProductsContext.Provider value={{ products, loading, error, retry }}>{children}</ProductsContext.Provider>
+  return <ProductsContext.Provider value={{ products, officialProducts, loading, error, retry }}>{children}</ProductsContext.Provider>
 }
 
 export function useProducts() {

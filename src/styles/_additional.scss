@@ -1,0 +1,10 @@
+@use 'tokens' as *;
+
+// Apenas as linhas de abas adicionais. Os estilos da versão original permanecem iguais.
+.categories--additional > :nth-child(6n + 1) { border-left: 1px solid $border; }
+.categories--additional > :nth-child(n + 7) { border-top: 0; }
+
+@media (max-width: 899px) {
+  .categories--additional > :nth-child(3n + 1) { border-left: 1px solid $border; }
+  .categories--additional > :nth-child(n + 4) { border-top: 0; }
+}

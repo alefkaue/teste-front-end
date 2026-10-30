@@ -1,3 +1,5 @@
+import type { Category, DepartmentId } from './catalog'
+
 export interface ApiProduct {
   productName: string
   descriptionShort: string
@@ -13,6 +15,9 @@ export interface ProductsResponse {
 export interface Product extends ApiProduct {
   id: string
   slug: string
+  department?: DepartmentId
+  category?: Category
+  source?: 'additional'
 }
 
 export interface CartItem {

@@ -5,6 +5,7 @@ import App from './App'
 import './styles/main.scss'
 
 // Pages é uma hospedagem estática: o hash mantém as rotas após atualizar a aba.
-const Router = import.meta.env.MODE === 'pages' ? HashRouter : BrowserRouter
+const expanded = document.documentElement.dataset.edition === 'expanded'
+const Router = import.meta.env.MODE === 'pages' || expanded ? HashRouter : BrowserRouter
 
-createRoot(document.getElementById('root')!).render(<StrictMode><Router><App /></Router></StrictMode>)
+createRoot(document.getElementById('root')!).render(<StrictMode><Router><App expanded={expanded} /></Router></StrictMode>)

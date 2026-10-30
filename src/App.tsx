@@ -10,8 +10,10 @@ import { ProductDetails } from './pages/ProductDetails/ProductDetails'
 import { Cart } from './pages/Cart/Cart'
 import { EmptyState } from './components/Status/Status'
 import { Footer } from './components/Storefront/Storefront'
+import { EditionContext, useExpandedEdition } from './context/EditionContext'
 
 function Layout() {
+  const expanded = useExpandedEdition()
   const { pathname } = useLocation()
   const { storageUnavailable } = useCommerce()
   useEffect(() => {
@@ -33,12 +35,16 @@ function Layout() {
       <Route path="/produtos" element={<Products />} />
       <Route path="/produto/:slug" element={<ProductDetails key={pathname} />} />
       <Route path="/carrinho" element={<Cart />} />
+      {expanded && <>
+        <Route path="/departamento/:departmentId" element={<Products />} />
+        <Route path="/lancamentos" element={<Products additionalOnly />} />
+      </>}
       <Route path="*" element={<main id="conteudo" className="page"><EmptyState title="Página não encontrada"><Link className="text-link" to="/">Voltar ao início</Link></EmptyState></main>} />
     </Routes>
     <Footer />
   </>
 }
 
-export default function App() {
-  return <ProductsProvider><CommerceProvider><ModalProvider><Layout /></ModalProvider></CommerceProvider></ProductsProvider>
+export default function App({ expanded = false }: { expanded?: boolean }) {
+  return <EditionContext.Provider value={expanded}><ProductsProvider><CommerceProvider><ModalProvider><Layout /></ModalProvider></CommerceProvider></ProductsProvider></EditionContext.Provider>
 }
