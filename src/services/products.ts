@@ -1,7 +1,7 @@
 import type { Product } from '../types/product'
 import { identifyProduct, isApiProduct } from '../utils/products'
 
-export const PRODUCTS_URL = import.meta.env.DEV ? '/api/produtos.json' : '/data/produtos.json'
+export const PRODUCTS_URL = import.meta.env.DEV ? '/api/produtos.json' : `${import.meta.env.BASE_URL}data/produtos.json`
 
 export async function fetchProducts(signal?: AbortSignal): Promise<Product[]> {
   const response = await fetch(PRODUCTS_URL, { signal })

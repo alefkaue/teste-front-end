@@ -24,7 +24,7 @@ export function Header() {
         <span><Icon name="card" size={20} /><strong>Pagamento</strong> consulte as condições</span>
       </div>
       <div className="header-main container">
-        <Link to="/" aria-label="Econverse — início"><img className="brand-logo" src="/images/logo.png" width="139" height="41" alt="Econverse" /></Link>
+        <Link to="/" aria-label="Econverse — início"><img className="brand-logo" src={`${import.meta.env.BASE_URL}images/logo.png`} width="139" height="41" alt="Econverse" /></Link>
         <form className="header-search" role="search" onSubmit={submit}>
           <label className="sr-only" htmlFor="header-search">Buscar produtos</label>
           <input id="header-search" type="search" placeholder="O que você está buscando?" value={search} onChange={event => setSearch(event.target.value)} />

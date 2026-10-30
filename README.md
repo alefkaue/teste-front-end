@@ -2,6 +2,8 @@
 
 Desenvolvi este projeto como parte do processo seletivo da Econverse, usando React, TypeScript e Sass.
 
+**[Abrir a aplicação no GitHub Pages](https://alefkaue.github.io/teste-front-end/)** — acesso pelo navegador, sem instalar nada. Para executar no seu computador, siga as [instruções locais](#como-executar).
+
 ## Prévia
 
 <img src="docs/screenshots/preview-desktop.png" alt="Página inicial com banner, categorias e vitrine de produtos" width="900" />

@@ -22,7 +22,10 @@ function Layout() {
   }, [pathname])
 
   return <>
-    <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <a className="skip-link" href="#conteudo" onClick={event => {
+      event.preventDefault()
+      document.getElementById('conteudo')?.focus()
+    }}>Pular para o conteúdo</a>
     <Header />
     {storageUnavailable && <p className="storage-notice" role="status">O navegador não permitiu salvar os dados. Carrinho e favoritos funcionarão durante esta visita.</p>}
     <Routes>

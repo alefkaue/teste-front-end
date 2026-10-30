@@ -12,7 +12,10 @@ export function Hero() {
   return <section className="hero" aria-labelledby="hero-title"><div className="container hero__content">
     <h1 id="hero-title">Venha conhecer nossas <br />promoções</h1>
     <p><strong>Confira</strong> nossos produtos</p>
-    <a className="yellow-button" href="#produtos">Ver produto</a>
+    <a className="yellow-button" href="#produtos" onClick={event => {
+      event.preventDefault()
+      document.getElementById('produtos')?.scrollIntoView()
+    }}>Ver produto</a>
   </div></section>
 }
 
@@ -20,7 +23,7 @@ export function DepartmentTiles() {
   return <nav className="department-tiles container" aria-label="Comprar por departamento">
     {departments.map(([id, name], index) => <Link className={index === 0 ? 'is-active' : ''} key={id}
       to={index === 0 ? '/produtos' : `/produtos?departamento=${id}`}>
-      <span><img src={`/images/${id}.png`} width="61" height="61" alt="" /></span>{name}
+      <span><img src={`${import.meta.env.BASE_URL}images/${id}.png`} width="61" height="61" alt="" /></span>{name}
     </Link>)}
   </nav>
 }
@@ -37,7 +40,7 @@ export function Partners({ label }: { label: string }) {
 export function Brands() {
   return <section className="brands container" aria-labelledby="brands-title"><h2 id="brands-title">Navegue por marcas</h2>
     <ul>{[1, 2, 3, 4, 5].map(item => <li key={item}><Link to="/produtos" aria-label={`Explorar produtos — Econverse ${item}`}>
-      <img className="brand-logo" src="/images/logo.png" width="119" height="35" alt="Econverse" loading="lazy" />
+      <img className="brand-logo" src={`${import.meta.env.BASE_URL}images/logo.png`} width="119" height="35" alt="Econverse" loading="lazy" />
     </Link></li>)}</ul>
   </section>
 }
@@ -69,7 +72,7 @@ const footerColumns = [
 export function Footer() {
   const [info, setInfo] = useState<string | null>(null)
   return <footer className="site-footer"><div className="footer-main"><div className="container footer-main__inner">
-    <div className="footer-about"><Link to="/" aria-label="Econverse — início"><img className="brand-logo" src="/images/logo.png" width="164" height="49" alt="Econverse" loading="lazy" /></Link>
+    <div className="footer-about"><Link to="/" aria-label="Econverse — início"><img className="brand-logo" src={`${import.meta.env.BASE_URL}images/logo.png`} width="164" height="49" alt="Econverse" loading="lazy" /></Link>
       <p>Projeto desenvolvido para o desafio<br />de desenvolvimento front-end da Econverse.</p>
       <nav aria-label="Redes sociais">{['instagram', 'facebook', 'linkedin'].map(name => <button key={name} aria-label={name} onClick={() => setInfo('Redes sociais')}><Icon name={name} size={20} /></button>)}</nav>
     </div>

@@ -48,6 +48,8 @@ Os comandos e a cobertura estão em [VALIDACAO.md](VALIDACAO.md). `npm run test:
 
 O Playwright usa Edge no Windows e Chromium nos demais sistemas. A variável `PLAYWRIGHT_CHANNEL` seleciona outro canal instalado. A CI do GitHub executa instalação, testes, build e E2E em Linux.
 
-O código é entregue na branch `main` do fork. Não houve deploy em Vercel ou Netlify. Os arquivos `vercel.json` e `public/_redirects` preparam o fallback das rotas SPA, mas não foram verificados em uma hospedagem publicada.
+O código é entregue na branch `main` do fork, com publicação automática no [GitHub Pages](https://alefkaue.github.io/teste-front-end/) pelo workflow `deploy-pages.yml`. O build para essa hospedagem usa `npm run build:pages`, com base `/teste-front-end/` e rotas por hash, como `/teste-front-end/#/produtos`. Assim, os links internos também funcionam ao atualizar a aba. A execução local mantém as rotas convencionais e os comandos do README.
+
+Para conferir esse build localmente, use `npm run build:pages` e `npm run preview -- --mode pages`; o Vite informa a URL com `/teste-front-end/`. O catálogo é obtido do endpoint oficial durante a publicação e servido junto aos arquivos estáticos. Não houve deploy em Vercel ou Netlify; suas configurações de fallback permanecem disponíveis.
 
 As imagens de produtos dependem do servidor oficial. A interface foi verificada em Edge/Chromium; Safari, Firefox e aparelhos físicos não foram avaliados.
